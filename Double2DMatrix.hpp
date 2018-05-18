@@ -1,3 +1,7 @@
+#ifndef DOUBLE2DMATRIX_HPP
+#define DOUBLE2DMATRIX_HPP
+
+
 #include <iostream>
 using namespace std;
 
@@ -12,6 +16,8 @@ class Double2DMatrix {
     friend std::ostream& operator<< (std::ostream&, Double2DMatrix&);
     Double2DMatrix operator* (Double2DMatrix&);
     Double2DMatrix operator- (Double2DMatrix&);
+    static Double2DMatrix get_rotation_matrix_by_degree(double);
+    static Double2DMatrix get_rotation_matrix_by_radian(double); 
     void set_x11(double);
     void set_x12(double);
     void set_x21(double);
@@ -22,3 +28,5 @@ class Double2DMatrix {
     double get_x22();
     void set_elements(double, double, double, double);
 };
+
+#endif

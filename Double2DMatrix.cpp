@@ -1,6 +1,9 @@
 #include "Double2DMatrix.hpp"
 #include <iostream>
+#include <cmath>
 using namespace std;
+
+const double PI = 3.141592653589793238463;
 
 Double2DMatrix::Double2DMatrix() {
   this->x11 = 0;
@@ -20,13 +23,13 @@ Double2DMatrix::~Double2DMatrix() {
 }
 
 Double2DMatrix Double2DMatrix::operator + (Double2DMatrix &anotherDouble2DMatrix) {
-  Double2DMatrix* result = new Double2DMatrix(
-    this->x11 + anotherDouble2DMatrix.get_x11(),
-    this->x12 + anotherDouble2DMatrix.get_x12(),
-    this->x21 + anotherDouble2DMatrix.get_x21(),
-    this->x22 + anotherDouble2DMatrix.get_x22()
+  Double2DMatrix result = Double2DMatrix(
+    this->x11 + anotherDouble2DMatrix.x11,
+    this->x12 + anotherDouble2DMatrix.x12,
+    this->x21 + anotherDouble2DMatrix.x21,
+    this->x22 + anotherDouble2DMatrix.x22
   );
-  return *result;
+  return result;
 }
 
 std::ostream& operator<< (std::ostream &os, Double2DMatrix &myDouble2DMatrix) {
@@ -35,23 +38,35 @@ std::ostream& operator<< (std::ostream &os, Double2DMatrix &myDouble2DMatrix) {
 }
 
 Double2DMatrix Double2DMatrix::operator* (Double2DMatrix &anotherDouble2DMatrix) {
-  Double2DMatrix* result = new Double2DMatrix(
+  Double2DMatrix result = Double2DMatrix(
     this->x11 * anotherDouble2DMatrix.x11 + this->x12 * anotherDouble2DMatrix.x21,
     this->x11 * anotherDouble2DMatrix.x12 + this->x12 * anotherDouble2DMatrix.x22,
     this->x21 * anotherDouble2DMatrix.x11 + this->x22 * anotherDouble2DMatrix.x21,
     this->x21 * anotherDouble2DMatrix.x12 + this->x22 * anotherDouble2DMatrix.x22
   );
-  return *result;
+  return result;
 };
 
 Double2DMatrix Double2DMatrix::operator- (Double2DMatrix &anotherDouble2DMatrix) {
-  Double2DMatrix* result = new Double2DMatrix(
-    this->x11 - anotherDouble2DMatrix.get_x11(),
-    this->x12 - anotherDouble2DMatrix.get_x12(),
-    this->x21 - anotherDouble2DMatrix.get_x21(),
-    this->x22 - anotherDouble2DMatrix.get_x22()
+  Double2DMatrix result = Double2DMatrix(
+    this->x11 - anotherDouble2DMatrix.x11,
+    this->x12 - anotherDouble2DMatrix.x12,
+    this->x21 - anotherDouble2DMatrix.x21,
+    this->x22 - anotherDouble2DMatrix.x22
   );
-  return *result;
+  return result;
+}
+
+Double2DMatrix Double2DMatrix::get_rotation_matrix_by_degree(double fi) {
+  return Double2DMatrix::get_rotation_matrix_by_radian(fi*PI/180.0);
+}
+
+Double2DMatrix Double2DMatrix::get_rotation_matrix_by_radian(double fi) {
+  Double2DMatrix result = Double2DMatrix(
+    cos(fi), -sin(fi),
+    sin(fi), cos(fi)
+  );
+  return result;
 }
 
 void Double2DMatrix::set_x11(double x11) {

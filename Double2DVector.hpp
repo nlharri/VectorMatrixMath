@@ -1,3 +1,4 @@
+#include "Double2DMatrix.hpp"
 #include <iostream>
 using namespace std;
 
@@ -11,6 +12,7 @@ class Double2DVector {
     Double2DVector operator+ (Double2DVector&);
     friend std::ostream& operator<< (std::ostream&, Double2DVector&);
     friend double operator* (Double2DVector&, Double2DVector&);
+    Double2DVector operator* (Double2DMatrix&);
     Double2DVector operator- (Double2DVector&);
     void set_x(double);
     void set_y(double);
